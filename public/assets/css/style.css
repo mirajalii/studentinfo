@@ -1,0 +1,132 @@
+body{
+    font-family: montserrat;
+}
+
+.input-feilds{
+    display: flex;
+}
+
+.input-feilds input[type='text'],
+.input-feilds select{
+    width: 100%;
+    padding: 10px 12px;
+    min-height: 50px;
+}
+
+.form-wrapper{
+    padding: 50px 0;
+}
+
+.title{
+    text-transform: uppercase;
+    background: #ccc;
+    padding: 18px 0;
+}
+.custom-btn{
+    border: 1px solid #ccc;
+    border-radius: 0;
+    padding: 12px 13px;
+    margin: 0 5px;
+    text-transform: uppercase;
+    position: relative;
+    background: transparent;
+    transition: 0.3s;
+}
+.custom-btn::before{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 0;
+    transition: 0.3s;
+}
+.custom-btn:hover{
+    color: #fff;
+}
+
+.custom-btn:hover::before{
+    width: 100%;
+}
+
+.input-col-4,
+.input-col-6,
+.input-col-12{
+    padding: 0 5px;
+    margin-bottom: 10px;
+}
+
+.input-col-12{
+    width: 100%;
+}
+
+.input-col-4{
+    width: 33.3%;
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+.input-col-6{
+    width: 50%;
+}
+
+.checkboxes{
+    display: flex;
+}
+
+.checkboxes label{
+    min-height: 50px;
+    margin: 0;
+    border: 1px solid #ccc;
+    color: black;
+    font-size: 22px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.checkboxes label:first-child{
+    margin-right: 5px;
+}
+.checkboxes label:last-child{
+    margin-left: 5px;
+}
+
+label.checked{
+    background: #000;
+    color: #ccc;
+    border: #000;
+}
+
+.checkboxes label input{
+    display: none;
+}
+
+.file-upload{
+    position: relative;
+}
+
+.image-upload-wrap {
+    border: 4px dashed #ccc;
+    position: relative;
+    padding: 20px 10px 19px;
+    text-align: center;
+}
+
+input[type='file']{
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    cursor: pointer;
+}

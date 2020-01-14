@@ -3,29 +3,68 @@
 @section('content')
 
 <div class="container">
-    <table border="1">
-        <tr>
-            <th>Name</th>
-            <th>Roll Num</th>
-            <th>Class</th>
-            <th>Age</th>
-            <th>Image</th>
-            <th>Hobies</th>
-            <th>Action</th>
-        </tr>
-        @foreach($students as $student)
-        <tr>
-            <td>{{$student->name}}</td>
-            <td>{{$student->roll_no}}</td>
-            <td>{{$student->age}}</td>
-            <td>{{$student->hobies}}</td>
-            <td>
-            <a href="{{route('edit', $student->id)}}">Edit</a>
-            <a href="{{route('delete', $student->id)}}">Delete</a>
-            </td>
-        </tr>
-        @endforeach
-    </table>
-</div>
+    {{-- tabel --}}
+    <div class="header-elements">
+        <div class="search-box">    
+            <form action="{{route('lists')}}" method="POST" role="search">
+                {{ csrf_field() }}
+                <input type="text" name="q" value="miraj" placeholder="Search student records">
+                <i class="fa fa-search" aria-hidden="true"></i>
+            </form>
+        </div>
+        <div class="add">
+            <a href="{{URL::to('/add-student/create')}}" class="btn btn-success">Add New Records</a>
+        </div>
+    </div>
+    <div class="wrapper">
+  
+        <div class="table">
+            <div class="row header">
+                <div class="cell">
+                    Image
+                </div>
+                <div class="cell">
+                    Name
+                </div>
+                <div class="cell">
+                    Roll Num
+                </div>
+                <div class="cell">
+                    Class
+                </div>
+                <div class="cell">
+                    Age
+                </div>
+                <div class="cell">
+                    Gender
+                </div>
+                <div class="cell">
+                    Hobies
+                </div>
+                <div class="cell">
+                    Action
+                </div>
+            </div>
+            @foreach($students as $student)
+                <div class="row">
+                    <div class="cell"> <img src="{{ $student->image }}" alt=""/></div>
+                    <div class="cell">{{$student->name}}</div>
+                    <div class="cell">{{$student->roll_no}}</div>
+                    <div class="cell">{{$student->class}}</div>
+                    <div class="cell">{{$student->age}}</div>
+                    <div class="cell">{{$student->gender}}</div>
+                    <div class="cell">{{$student->hobies}}</div>
+                    <div class="cell">
+                        <span>
+                            <a href="{{route('edit', $student->id)}}" class="btn btn-success">Edit</a>
+                            <a href="{{route('delete', $student->id)}}" class="btn btn-danger">Delete</a>
+                        </span> 
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        
+    </div>
+    {{-- end table --}}
 
 @endSection

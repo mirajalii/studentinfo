@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Route::get('/add-student/', function () {
-//     return view('welcome');
-// });
+Route::get('/add-student/', function () {
+    return view('welcome');
+});
 
 
 // Route::resource('/add-student/','SudentsInfoController');
@@ -25,7 +25,13 @@ Route::get('/', function () {
 Route::get('/add-student/create', 'SudentsInfoController@create');
 
 Route::post('/add-records', 'SudentsInfoController@store')->name('addRecord');
-Route::get('/records', 'SudentsInfoController@list')->name('lists');
+
+// Route::get('/records', 'SudentsInfoController@list')->name('lists');
+
+Route::get('/records','SudentsInfoController@search')->name('lists');
+
 Route::get('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
+
 Route::post('/update-records/{id}', 'SudentsInfoController@update')->name('update');
+
 Route::get('/delete-records/{id}', 'SudentsInfoController@desktroy')->name('delete');

@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+// use Carbon\Carbon;
 
 class Student extends Model
 {
@@ -19,8 +19,9 @@ class Student extends Model
         'image'
     ];
 
-    public function setAgeAttribute($value)
-    {
-        $this->attributes['age'] = Carbon::parse($value)->format('Y-m-d');
-    }
+    // public function setAgeAttribute($value)
+    // {
+    //     $this->attributes['age'] = Carbon::parse($value)->format('Y-m-d');
+    // }
 }
+

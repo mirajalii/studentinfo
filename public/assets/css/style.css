@@ -120,9 +120,20 @@ label.checked{
 .checkboxes label input{
     display: none;
 }
+.is-danger{
+    border-color: red;
+}
 
 .file-upload{
     position: relative;
+}
+.file-upload img{
+    position: absolute;
+    width: 107px;
+    height: 81px;
+    top: 3px;
+    left: 4px;
+    object-fit: cover;
 }
 
 .image-upload-wrap {
@@ -192,9 +203,18 @@ input[type='file']{
     margin: 0 auto;
     padding: 20px 0;
 }
-
+.page-link{
+    box-shadow: none !important;
+}
+.cell img{
+    width: 60px;
+    height: 60px;
+    border-radius: 4px;
+    border: 1px solid #cacaca;
+    display: inline-block;
+}
 .wrapper  .table {
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
     width: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     display: table;
@@ -215,7 +235,7 @@ input[type='file']{
   .wrapper  .row.header {
     font-weight: 900;
     color: #ffffff;
-    background: #ea6153;
+    background: #000;
   }
   .wrapper  .row.green {
     background: #27ae60;
@@ -255,6 +275,13 @@ input[type='file']{
     padding: 6px 12px;
     display: table-cell;
   }
+  .wrapper .row.header .cell{
+      font-weight: 500;
+  }
+  .row .cell{
+
+  }
+  
   @media screen and (max-width: 580px) {
     .wrapper .cell {
       padding: 2px 16px;

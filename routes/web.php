@@ -26,9 +26,9 @@ Route::get('/add-student/create', 'SudentsInfoController@create');
 
 Route::post('/add-records', 'SudentsInfoController@store')->name('addRecord');
 
-// Route::get('/records', 'SudentsInfoController@list')->name('lists');
+Route::get('/records', 'SudentsInfoController@list')->name('lists');
 
-Route::get('/records','SudentsInfoController@search')->name('lists');
+// Route::get('/records','SudentsInfoController@search')->name('lists');
 
 Route::get('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
 

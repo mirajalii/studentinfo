@@ -43,11 +43,14 @@
                         {{--  --}}
                         <div class="file-upload">
                             <div class="image-upload-wrap">
-                              <input class="file-upload-input" type='file' name="image" accept="image/*" />
+                            <input class="file-upload-input" type='file' value="{{$student->image}}" name="image" accept="image/*" />
                               <div class="drag-text">
                                 <h3>Drag and drop a file or select add Image</h3>
                               </div>
                             </div>
+                            @if($student->image)
+                                <img src="{{$student->image}}" alt="">
+                            @endif
                         </div>
                         {{--  --}}
                     </div>

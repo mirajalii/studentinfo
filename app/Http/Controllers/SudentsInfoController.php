@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Http\Requests\StudentRequest;
-use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\URL;
 use DB;
 use Arr;
 
@@ -16,79 +18,57 @@ class SudentsInfoController extends Controller
     public function index()
     {
 
+
     }
 
-    // public function list()
-    // {
-    //     $students = Student::get();
-    //     return view('studentinfo.lists', [
-    //         'students' => $students,
-    //     ]);
-    // }
+    public function list()
+    {
+        $students = Student::paginate(5);
+        return view('studentinfo.lists', [
+            'students' => $students,
+        ]);
+    }
 
     public function search(Request $request)
     {
-        // $q = new Student;
-        // $q = $request->input('name');
-        // dd($q);
-            $q = Student::get();
-            $user = Student::where('name','LIKE','%miraj%')->get();
-            // dd($user);
-            if(count($user) > 0){
-                dd($user[0]);
-                return view('studentinfo.lists', [
-                    'students' => $q,
-                ]);
-            }
-            else 
-            {
-                return view ('welcome')->withMessage('No Details found. Try to search again !');
-            }
         
-
-        // $inputs = $request->all();
-        // dd($inputs);
-
-        if($request->ajax())
-        {
-            return view('studentinfo.search');
-
-        }
-        else
-        {
-            $students = Student::get();
-                return view('studentinfo.lists', [
-                'students' => $students,
-            ]);
-        }
-        
-
     }
 
 
     public function store(Request $request) 
     {
+        request()->validate([
+            'name' => ['required','min:3'],
+            'roll_no' => ['required'],
+            'class' => ['required'],
+            'age' => ['required'],
+            'gender' => ['required'],
+            'hobies' => ['required'],
+        ]);
         $student = new Student;
 
         $inputs = $request->all();
-        $imageUrl = $this->imageStorage(Arr::get($inputs, 'image'));
+
+        $image = $inputs['image'];
+
+        $new_name = time() . '.' . $image->getClientOriginalExtension();
+
+        $image->move(public_path('assets/images'), $new_name);
+
+        $imageUrl = $new_name;
+
         $inputs['image'] = $imageUrl;
-        // dd($imageUrl);
-        /* $student->name = $inputs['name'];
-        $student->age = $inputs['name'];
-        $student->image = $inputs['name'];
-        $student->ncalssame = $inputs['name'];
-        $student->name = $inputs['name'];
-        $student->name = $inputs['name'];
-        $student->name = $inputs['name']; */
-        // dd($inputs);
+
         $student = Student::create($inputs);
+
         return redirect()->route('lists');
     }
 
     public function create()
     {
+
         return view('studentinfo.create');
+    
     }
 
     public function show()
@@ -99,14 +79,49 @@ class SudentsInfoController extends Controller
     public function update($id, Request $request)
     {
         $student = Student::where('id', $id)->first();
-        $student->update($request->all());
+
+        $studentImage = Student::find($id)->image;
+
+        $inputs = $request->all();
+
+        if($request->has('image'))
+        {
+
+            $image = $inputs['image'];
+            
+            if(File::exists('assets/images/' . $studentImage)) {
+    
+                unlink('assets/images/'.$studentImage);
+            
+            }
+
+            $new_name = time() . '.' . $image->getClientOriginalExtension();
+
+            $image->move(public_path('assets/images'), $new_name);
+
+            $imageUrl = $new_name;
+
+            $inputs['image'] = $imageUrl;
+
+            $student->update($request->all());
+
+            $student->image = $imageUrl;
+
+            $student->save();
+
+        }
+        else{
+            $student->update($request->all());
+        }
 
         return redirect()->route('lists');
+    
     }
 
     public function desktroy($id)
     {
         $student = Student::where('id', $id)->first()->delete();
+
         return redirect()->route('lists');
     }
 
@@ -120,16 +135,4 @@ class SudentsInfoController extends Controller
         ]);
     }
 
-    private function imageStorage($file)
-    {
-        $imageUrl = null;
-
-        if(!is_null($file)) {
-            $path = Storage::putFile('public/images', $file);
-            $imageUrl = env('APP_URL').Storage::url($path);
-        }
-
-        return $imageUrl;
-
-    }
 }

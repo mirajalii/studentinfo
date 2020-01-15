@@ -8,7 +8,7 @@
         <div class="search-box">    
             <form action="{{route('lists')}}" method="post" role="search">
                 {{ csrf_field() }}
-                <input type="text" name="q" value="miraj" placeholder="Search student records">
+                <input type="text" name="q" id="search" placeholder="Search student records">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </form>
         </div>
@@ -71,21 +71,6 @@
             @endforeach
         </div>
         {{ $students->links() }}
-        {{-- <nav aria-label="...">
-            <ul class="pagination">
-                <li class="page-item disabled">
-                    <a class="page-link" href="{{$student->currentPage()}}" tabindex="-1">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item active">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav> --}}
     </div>
     {{-- end table --}}
 

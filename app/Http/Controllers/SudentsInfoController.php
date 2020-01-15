@@ -21,12 +21,35 @@ class SudentsInfoController extends Controller
 
     }
 
-    public function list()
+    public function studentRecords(Request $request)
     {
+        $students = null;
+        $inputs = $request->all();
+
+        if(Arr::get($inputs, 'name')){
+            $name = Arr::get($inputs, 'name');
+            $students = Student::where('name', 'like', '%'.$name.'%')->paginate(5);
+        }
+
+        return response()->json([
+            'data' => $students,
+        ]);
+
+
+    }
+
+    public function list(Request $request)
+    {
+        $orderBy = 'id';
+        $orderingBy = 'DESC';
+
         $students = Student::paginate(5);
+        $students = Student::orderBy($orderBy, $orderingBy)->paginate(5);
+
         return view('studentinfo.lists', [
             'students' => $students,
         ]);
+
     }
 
     public function search(Request $request)
@@ -133,6 +156,11 @@ class SudentsInfoController extends Controller
             'id' => $id,
             'student' => $student,
         ]);
+    }
+
+    public function deleteImage(Request $id, $request){
+        $Student = Student::find($request->id);
+        
     }
 
 }

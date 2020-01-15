@@ -35,3 +35,7 @@ Route::get('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
 Route::post('/update-records/{id}', 'SudentsInfoController@update')->name('update');
 
 Route::get('/delete-records/{id}', 'SudentsInfoController@desktroy')->name('delete');
+
+Route::delete('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
+
+Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');

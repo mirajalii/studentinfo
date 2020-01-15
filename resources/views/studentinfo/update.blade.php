@@ -22,14 +22,21 @@
                     </div>
                     <div class="input-col-6">
                         <div class="checkboxes">
-                            <label for="">Male
-                                @if($student->gender == 'male')
-                                <input type="radio" name="gender" value="male" checked="1">
-                                @endif
-                            </label>
-                            <label for="">Female
-                                <input type="radio" name="gender" value="female">
-                            </label>
+                            @if($student->gender == 'male')
+                                <label for="" class="checked">Male
+                                        <input type="radio" name="gender" value="male" checked="checked">
+                                </label>
+                                <label for="">Female
+                                    <input type="radio" name="gender" value="Female">
+                                </label>
+                            @else
+                                <label for="">Male
+                                    <input type="radio" name="gender" value="male">
+                                </label>
+                                <label for="" class="checked">Female
+                                    <input type="radio" name="gender" value="Female" checked="checked">
+                                </label>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -49,7 +56,7 @@
                               </div>
                             </div>
                             @if($student->image)
-                                <img src="{{$student->image}}" alt="">
+                                <img src="{{URL::asset('assets/images/')}}/{{ $student->image}}" alt="">
                             @endif
                         </div>
                         {{--  --}}

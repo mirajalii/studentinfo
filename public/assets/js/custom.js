@@ -17,31 +17,32 @@ $(document).ready(function(){
 
     // student record search ajax
 
-    $('.search-box').find('input').keyup( function(){
+    $('#search').keyup( function(){
 
         var searchValue = $(this).val();
 
         var new_row = document.createElement('div');
+        console.log(searchValue);
+        // new_row.classList.add('row');
 
-        new_row.classList.add('row');
+        // var cells = document.createElement('div')
 
-        var cells = document.createElement('div')
-
-        cells.classList.add('cell');
+        // cells.classList.add('cell');
 
         $.ajax({
 
-            url: "/records",
-
+            url: "/search",
+            data: { 
+                name: searchValue, 
+            },
             method:'GET',
 
-            dataType:'json',
-
             success:function(data){
+                $('.table').html('');
 
-                var regex =  '/' + searchValue + '/g';
+                // var regex =  '/' + searchValue + '/g';
 
-                data.forEach(element => {
+                /* data.forEach(element => {
                     
                     console.log(element)
 
@@ -54,7 +55,7 @@ $(document).ready(function(){
                         console.log('abc');
 
                     }
-                });
+                }); */
             }
         })
     });

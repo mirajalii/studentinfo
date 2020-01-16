@@ -40,12 +40,9 @@ class SudentsInfoController extends Controller
 
     public function list(Request $request)
     {
-        $orderBy = 'id';
-        $orderingBy = 'DESC';
-
-        $students = Student::paginate(5);
-        $students = Student::orderBy($orderBy, $orderingBy)->paginate(5);
-
+        
+        $inputs = $request->all();
+        $students = Student::sortable()->paginate(5);
         return view('studentinfo.lists', [
             'students' => $students,
         ]);
@@ -53,7 +50,7 @@ class SudentsInfoController extends Controller
     }
 
     public function search(Request $request)
-    {
+    {   
         
     }
 
@@ -70,19 +67,35 @@ class SudentsInfoController extends Controller
         ]);
         $student = new Student;
 
+        $inputs = array(
+            'students_info' => Student::get(),
+        );
+
+        dd($inputs);
         $inputs = $request->all();
 
-        $image = $inputs['image'];
+        $inputs['image'] = null;
 
-        $new_name = time() . '.' . $image->getClientOriginalExtension();
+        if($request->has('image'))
+        {
 
-        $image->move(public_path('assets/images'), $new_name);
+            $image = $inputs['image'];
 
-        $imageUrl = $new_name;
+            $new_name = time() . '.' . $image->getClientOriginalExtension();
 
-        $inputs['image'] = $imageUrl;
+            $image->move(public_path('assets/images'), $new_name);
 
-        $student = Student::create($inputs);
+            $imageUrl = $new_name;
+
+            $inputs['image'] = $imageUrl;
+
+            $student = Student::create($inputs);
+
+        }else{
+
+            $student = Student::create($inputs);
+        }
+
 
         return redirect()->route('lists');
     }
@@ -94,9 +107,12 @@ class SudentsInfoController extends Controller
     
     }
 
-    public function show()
+    public function show($id,Request $request)
     {
-
+        $students = Student::where('id', $id)->first();
+        return view('studentinfo.single', [
+            'students' => $students,
+        ]);
     }
 
     public function update($id, Request $request)

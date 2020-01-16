@@ -155,6 +155,20 @@ input[type='file']{
     opacity: 0;
     cursor: pointer;
 }
+.ajax{
+    position: relative;
+}
+.ajax::after{
+    content: 'content loding...';
+    background: #a0a0a0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    font-size: 30px;
+    padding: 20px 0 0 20px;
+
+}
 
 .header-elements{
     display: flex;
@@ -196,6 +210,47 @@ input[type='file']{
     font-weight: 500;
     font-size: 13px;
 }
+
+.image-pro{
+    height: 100%;
+}
+.single-inner{
+    margin-top: 45px;
+    border: 1px solid #ccc;
+}
+.single-inner .custom-btn{
+    margin: 10px 0 0;
+    width: 100%;
+}
+.image-pro img{
+ 
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+    border: 1px solid #cacaca;
+    
+}
+.details strong{
+    display: inline-block;
+    min-width: 150px;
+    position: relative;
+}
+.details strong::after{
+    content: '\f061';
+    font-family: FontAwesome;
+    position: absolute;
+    right: 12px;
+    top: 0;
+
+}
+ul.details li{
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+.not-found{
+    text-align: center;
+    padding-top: 15px;
+}
 /* table css */
 
   
@@ -206,6 +261,10 @@ input[type='file']{
 .page-link{
     box-shadow: none !important;
 }
+
+.image-pro{
+    height: 100%;
+}
 .cell img{
     width: 60px;
     height: 60px;
@@ -214,12 +273,52 @@ input[type='file']{
     display: inline-block;
     object-fit: contain;
 }
+.row.header .cell a{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0;
+} 
 .wrapper  .table {
     margin: 0 0 20px 0;
     width: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     display: table;
   }
+
+.body-table{
+      display: table;
+      width: 100%;
+}
+.wrapper .row .cell:first-child{
+    width:85px ;
+
+}
+.wrapper .row .cell:nth-child(2){
+    width: 120px ;
+}
+.wrapper .row .cell:nth-child(3){
+    width: 115px;
+}
+.wrapper .row .cell:nth-child(4){
+    width: 120px;
+}
+.wrapper .row .cell:nth-child(5){
+    width: 145px;
+}
+.wrapper .row .cell:nth-child(6){
+    width: 120px;
+}
+.wrapper .row .cell:nth-child(7){
+    width: 150px;
+}
+.cell span a{
+    margin-left: 2px;
+}
+
+
   @media screen and (max-width: 580px) {
     .wrapper .table {
       display: block;
@@ -255,6 +354,7 @@ input[type='file']{
     }
     .wrapper    .row.header .cell {
       display: none;
+
     }
     .wrapper    .row .cell {
       margin-bottom: 10px;
@@ -276,11 +376,16 @@ input[type='file']{
     padding: 6px 12px;
     display: table-cell;
   }
+  .wrapper .row.header{
+      display: table;
+      width: 100%;
+      margin: 0;
+  }
   .wrapper .row.header .cell{
       font-weight: 500;
   }
   .row .cell{
-
+    position: relative;
   }
   
   @media screen and (max-width: 580px) {

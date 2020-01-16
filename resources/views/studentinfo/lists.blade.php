@@ -8,7 +8,7 @@
         <div class="search-box">    
             <form action="{{route('lists')}}" method="post" role="search">
                 {{ csrf_field() }}
-                <input type="text" name="q" id="search" placeholder="Search student records">
+                <input type="text" name="q" id="search" placeholder="Search student by name">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </form>
         </div>
@@ -21,13 +21,15 @@
         <div class="table">
             <div class="row header">
                 <div class="cell">
-                    
+
                     Image
                 </div>
                 <div class="cell">
+                    @sortablelink('name')
                     Name
                 </div>
                 <div class="cell">
+                    @sortablelink('roll_no')
                     Roll Num
                 </div>
                 <div class="cell">
@@ -46,13 +48,14 @@
                     Action
                 </div>
             </div>
+            <div class="body-table">
             @foreach($students as $student)
                 <div class="row">
                     <div class="cell"> 
                         @if($student->image)
                         <img src="{{URL::asset('assets/images/')}}/{{ $student->image}}" alt=""/>
                         @else
-                            <img src="{{URL::asset('assets/images/')}} /profile404.jpg" alt=""/>
+                            <img src="{{URL::asset('assets/images/')}}/profile404.jpg" alt=""/>
                         @endif
                     </div>
                     <div class="cell">{{$student->name}}</div>
@@ -65,10 +68,12 @@
                         <span>
                             <a href="{{route('edit', $student->id)}}" class="btn btn-success">Edit</a>
                             <a href="{{route('delete', $student->id)}}" class="btn btn-danger">Delete</a>
+                            <a href="{{route('single', $student->id)}}" class="btn btn-success">show</a>
                         </span> 
                     </div>
                 </div>
             @endforeach
+        </div>
         </div>
         {{ $students->links() }}
     </div>

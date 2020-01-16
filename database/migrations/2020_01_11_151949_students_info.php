@@ -15,13 +15,13 @@ class StudentsInfo extends Migration
     {
         Schema::create('Students_Info', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('roll_no')->unique();;
+            $table->string('roll_no');
             $table->string('name');
             $table->string('class');
             $table->string('age');
             $table->string('gender');
             $table->string('hobies');
-            $table->string('image');
+            $table->string('image')->default(null)->change();
             $table->timestamps();
         });
     }

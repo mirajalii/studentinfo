@@ -18,7 +18,7 @@
                 </div>
                 <div class="input-feilds">
                     <div class="input-col-6">
-                        <input type="text" name="age" value="{{$student->age}}" placeholder="D.O.B">
+                        <input type="text" name="age" value="{{$student->age}}" placeholder="D.O.B" autocomplete="off">
                     </div>
                     <div class="input-col-6">
                         <div class="checkboxes">

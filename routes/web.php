@@ -28,7 +28,7 @@ Route::post('/add-records', 'SudentsInfoController@store')->name('addRecord');
 
 Route::get('/records', 'SudentsInfoController@list')->name('lists');
 
-// Route::get('/records','SudentsInfoController@search')->name('lists');
+Route::get('/single-student/{id}', 'SudentsInfoController@show')->name('single');;
 
 Route::get('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
 
@@ -39,3 +39,5 @@ Route::get('/delete-records/{id}', 'SudentsInfoController@desktroy')->name('dele
 Route::delete('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
 
 Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
+
+

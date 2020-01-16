@@ -21,7 +21,7 @@
                 </div>
                 <div class="input-feilds">
                     <div class="input-col-6">
-                        <input type="text" name="age" placeholder="D.O.B" class="{{$errors->has('age') ? 'is-danger' : '' }}">
+                        <input type="text" name="age" placeholder="D.O.B" class="{{$errors->has('age') ? 'is-danger' : '' }}" autocomplete="off">
                     </div>
                     <div class="input-col-6">
                         <div class="checkboxes">

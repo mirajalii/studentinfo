@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 // use Carbon\Carbon;
+use Kyslik\ColumnSortable\Sortable;
 
 class Student extends Model
 {
+    use Sortable;
     protected $table = 'Students_Info';
 
     protected $fillable = [
@@ -18,6 +20,7 @@ class Student extends Model
         'hobies',
         'image'
     ];
+    public $sortable = ['id'];
 
     // public function setAgeAttribute($value)
     // {

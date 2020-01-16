@@ -7,7 +7,12 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="image-pro">
-                <img src="{{URL::asset('assets/images/')}}/{{ $students->image }}" alt="">
+                    @if($students->image)
+                        <img src="{{URL::asset('assets/images/')}}/{{ $students->image }}" alt="">
+                    @else
+                    <img src="{{URL::asset('assets/images/')}}/profile404.jpg" alt="">
+
+                    @endif
                 </div>
             </div>
             <div class="col-md-9">

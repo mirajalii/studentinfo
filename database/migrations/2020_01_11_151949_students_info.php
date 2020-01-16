@@ -21,7 +21,7 @@ class StudentsInfo extends Migration
             $table->string('age');
             $table->string('gender');
             $table->string('hobies');
-            $table->string('image')->default(null)->change();
+            $table->string('image');
             $table->timestamps();
         });
     }

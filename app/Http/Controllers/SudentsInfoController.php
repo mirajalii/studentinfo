@@ -67,15 +67,10 @@ class SudentsInfoController extends Controller
         ]);
         $student = new Student;
 
-        $inputs = array(
-            'students_info' => Student::get(),
-        );
-
-        dd($inputs);
         $inputs = $request->all();
+        
 
-        $inputs['image'] = null;
-
+        // dd($inputs);
         if($request->has('image'))
         {
 
@@ -125,13 +120,17 @@ class SudentsInfoController extends Controller
 
         if($request->has('image'))
         {
-
+            
             $image = $inputs['image'];
             
-            if(File::exists('assets/images/' . $studentImage)) {
-    
-                unlink('assets/images/'.$studentImage);
-            
+            // dd($image);
+            if($studentImage)
+            {
+                if(File::exists('assets/images/' . $studentImage)) {
+        
+                    unlink('assets/images/'.$studentImage);
+                
+                }
             }
 
             $new_name = time() . '.' . $image->getClientOriginalExtension();
@@ -159,7 +158,20 @@ class SudentsInfoController extends Controller
 
     public function desktroy($id)
     {
-        $student = Student::where('id', $id)->first()->delete();
+        $student = Student::where('id', $id)->first();
+        // $student = Student::where('id', $id)->first()->delete();
+        $studentImage = $student->image;
+
+        if($student->image != null){
+
+            if(File::exists('assets/images/' . $studentImage)) {
+        
+                unlink('assets/images/'.$studentImage);
+            
+            }
+        }
+        
+        $student->delete();
 
         return redirect()->route('lists');
     }
@@ -174,9 +186,18 @@ class SudentsInfoController extends Controller
         ]);
     }
 
-    public function deleteImage(Request $id, $request){
-        $Student = Student::find($request->id);
+    public function deleteImage($id,Request $request){
+
+        $student = Student::where('id', $id)->first();
+
+        $studentImage = Student::find($id)->image;
+
+        $inputs = $request->all();
         
+        
+
+        return redirect()->route('lists');
+
     }
 
 }

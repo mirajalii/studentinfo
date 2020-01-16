@@ -48,6 +48,7 @@
                               <div class="drag-text">
                                 <h3>Drag and drop a file or select add Image</h3>
                               </div>
+                              <img src="" alt="">
                             </div>
                         </div>
                         {{--  --}}

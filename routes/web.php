@@ -40,4 +40,6 @@ Route::delete('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
 
 Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
 
+Route::get('/image-delete/{id}', 'SudentsInfoController@studentRecords')->name('imageDelete');
+
 

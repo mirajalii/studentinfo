@@ -15,6 +15,37 @@ $(document).ready(function(){
     
     });
 
+    // Image drag upload
+    $('.image-upload-wrap').on('dragover', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        $(this).addClass('dragover');
+    });
+    $('.image-upload-wrap').on('dragleave', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    $('.image-upload-wrap').on('drop', function(e) {
+        $(this).removeClass('dragover');
+    })
+
+    // show image before upload
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+            $('.file-upload').find('img').attr('src', e.target.result);
+          }
+          
+          reader.readAsDataURL(input.files[0]);
+        }
+    }
+      
+    $('.image-upload-wrap').find('input').change(function() {
+        readURL(this);
+    });
+
     $('.header .cell').find('a').text('');
     // date picker
 
@@ -40,14 +71,6 @@ $(document).ready(function(){
 
         var searchValue = $(this).val();
 
-        var new_row = document.createElement('div');
-
-        var rows = new_row.classList.add('row');
-
-        var cells = document.createElement('div')
-
-        var nodeCell = cells.classList.add('cell');
-
         $.ajax({
 
             url: "/search",
@@ -61,14 +84,19 @@ $(document).ready(function(){
                 var QueryArray = data.data.data;
                 if(QueryArray != ''){
                     QueryArray.forEach(element => {
-                        document.querySelector('.body-table').innerHTML += '<div class="row"> <div class="cell"> <img src="/assets/images/' + element.image +'" />  </div> <div class="cell">' + element.name +' </div><div class="cell">' + element.roll_no +' </div><div class="cell">' + element.class +' </div><div class="cell">' + element.age +' </div><div class="cell">' + element.gender +' </div> <div class="cell">' + element.hobies +' </div><div class="cell"><span><a href="/edit-records/'+ element.id +'" class="btn btn-success">Edit</a><a href="delete-records/'+ element.id +'" class="btn btn-danger">Delete</a></span>  </div>  </div>';
-    
+                        if(element.image == null)
+                        {
+                            document.querySelector('.body-table').innerHTML += '<div class="row"> <div class="cell"> <img src="/assets/images/profile404.jpg" />  </div> <div class="cell">' + element.name +' </div><div class="cell">' + element.roll_no +' </div><div class="cell">' + element.class +' </div><div class="cell">' + element.age +' </div><div class="cell">' + element.gender +' </div> <div class="cell">' + element.hobies +' </div><div class="cell"><span><a href="/edit-records/'+ element.id +'" class="btn btn-success">Edit</a><a href="delete-records/'+ element.id +'" class="btn btn-danger">Delete</a> <a href="http://localhost:8000/single-student/'+ element.id +'1" class="btn btn-success">show</a> </span>  </div>  </div>';
+                        }else
+                        {
+                            document.querySelector('.body-table').innerHTML += '<div class="row"> <div class="cell"> <img src="/assets/images/'+ element.image +'" />  </div> <div class="cell">' + element.name +' </div><div class="cell">' + element.roll_no +' </div><div class="cell">' + element.class +' </div><div class="cell">' + element.age +' </div><div class="cell">' + element.gender +' </div> <div class="cell">' + element.hobies +' </div><div class="cell"><span><a href="/edit-records/'+ element.id +'" class="btn btn-success">Edit</a><a href="delete-records/'+ element.id +'" class="btn btn-danger">Delete</a> <a href="http://localhost:8000/single-student/'+ element.id +'1" class="btn btn-success">show</a></span>  </div>  </div>';
+                        }
                     }); 
-                }else{
-                    document.querySelector('.body-table').innerHTML += '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
                 }
-                
-                               
+                else
+                {
+                    document.querySelector('.body-table').innerHTML += '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
+                }              
             }
         })
     });

@@ -130,10 +130,13 @@ label.checked{
 .file-upload img{
     position: absolute;
     width: 107px;
-    height: 81px;
-    top: 3px;
+    height: 76px;
     left: 4px;
-    object-fit: cover;
+    object-fit: contain;
+    z-index: 1;
+    border: 1px solid #ccc;
+    top: 50%;
+    transform: translate(0, -50%);
 }
 
 .image-upload-wrap {
@@ -209,6 +212,10 @@ input[type='file']{
     color: #969696;
     font-weight: 500;
     font-size: 13px;
+}
+.dragover{
+    border-color: #000;
+    background-color: #ccc;
 }
 
 .image-pro{

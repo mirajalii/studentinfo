@@ -30,7 +30,9 @@ class SudentsInfoController extends Controller
         $students = null;
         $inputs = $request->all();
 
-
+        dd(Arr::get(
+            [$inputs => 'name']
+        ));
         if(Arr::get($inputs, 'name')){
             $name = Arr::get($inputs, 'name');
             // $class = Arr::get($inputs, 'class');

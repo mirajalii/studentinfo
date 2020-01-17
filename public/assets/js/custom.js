@@ -94,7 +94,11 @@ $(document).ready(function(){
                 {
                     document.querySelector('.body-table').innerHTML = '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
                 }
-            }
+            },
+            error: function(){
+                    $('.body-table').removeClass('ajax');
+                    document.querySelector('.body-table').innerHTML = '<p class="not-found">please try again after some time</a> </p>';
+            },
         })
         if($(this).val() == '')
         {

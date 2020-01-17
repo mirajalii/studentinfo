@@ -36,10 +36,8 @@ Route::post('/update-records/{id}', 'SudentsInfoController@update')->name('updat
 
 Route::get('/delete-records/{id}', 'SudentsInfoController@desktroy')->name('delete');
 
-Route::delete('/edit-records/{id}', 'SudentsInfoController@edit')->name('edit');
+Route::get('/search/{name}', 'SudentsInfoController@studentRecords')->name('eseaarch');
 
-Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
-
-Route::get('/image-delete/{id}', 'SudentsInfoController@studentRecords')->name('imageDelete');
+Route::get('image-delete/{id}', 'SudentsInfoController@deleteImage')->name('imageDelete');
 
 

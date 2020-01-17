@@ -13,7 +13,7 @@
                         <input type="text" name="name" value="{{$student->name}}" placeholder="Name">
                     </div>
                     <div class="input-col-4">
-                        {{ Form::select('class', config('student.class_names'))}}
+                        {{ Form::select('class', config('student.class_names'), $student->class)}}
                     </div>
                 </div>
                 <div class="input-feilds">
@@ -55,16 +55,22 @@
                                 <h3>Drag and drop a file or select add Image</h3>
                               </div>
                             </div>
+                            
                             @if($student->image)
                                 <img src="{{URL::asset('assets/images/')}}/{{ $student->image}}" alt="">
+                                <a href="{{ route('imageDelete',$student->id) }} "><i class="fa fa-trash" aria-hidden="true"></i></a>                                
+                            @else
+                                <img src="{{URL::asset('assets/images/')}}/upload.png" alt="">
                             @endif
                         </div>
                         {{--  --}}
                     </div>
                 </div>
-                <button type="submit" class="btn custom-btn">Add Student record</button>
+                <button type="submit" class="btn custom-btn">Update Student record</button>
             <a  href="{{route('lists')}}" type="button" class="btn custom-btn">List</a>
             {!! Form::close() !!}
+
+
         </div><!--form wrapper-->
     </div>
 @endsection

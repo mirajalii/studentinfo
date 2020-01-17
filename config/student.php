@@ -3,6 +3,7 @@
 return [
 
     'class_names' => [
+        null => 'Select Class',
         'nur'   => 'nur',
         'lkg'   =>  'lkg',
         'ukg'   => 'ukg',

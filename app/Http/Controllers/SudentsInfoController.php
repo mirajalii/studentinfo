@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Validation\Rule;
+use Kyslik\ColumnSortable\Sortable;
+use View;
+use Response;
 use DB;
 use Arr;
 
@@ -17,7 +21,7 @@ class SudentsInfoController extends Controller
 
     public function index()
     {
-
+        
 
     }
 
@@ -26,14 +30,22 @@ class SudentsInfoController extends Controller
         $students = null;
         $inputs = $request->all();
 
+
         if(Arr::get($inputs, 'name')){
             $name = Arr::get($inputs, 'name');
+            // $class = Arr::get($inputs, 'class');
+            // dd($class);
             $students = Student::where('name', 'like', '%'.$name.'%')->paginate(5);
         }
 
-        return response()->json([
-            'data' => $students,
-        ]);
+        // return view('ajax')->render();
+
+        $html = View::make('ajax', compact('students'))->render();
+        return Response::json(['html' => $html]);
+
+        // return response()->json([
+        //     'data' => $students,
+        // ]);
 
 
     }
@@ -48,23 +60,17 @@ class SudentsInfoController extends Controller
         ]);
 
     }
-
-    public function search(Request $request)
-    {   
-        
-    }
-
-
     public function store(Request $request) 
     {
         request()->validate([
             'name' => ['required','min:3'],
-            'roll_no' => ['required'],
+            'roll_no' => ['required',Rule::unique('Students_Info')],
             'class' => ['required'],
             'age' => ['required'],
             'gender' => ['required'],
             'hobies' => ['required'],
         ]);
+
         $student = new Student;
 
         $inputs = $request->all();
@@ -91,7 +97,7 @@ class SudentsInfoController extends Controller
             $student = Student::create($inputs);
         }
 
-
+        $request->session()->flash('alert-success', 'Student was successful added!');
         return redirect()->route('lists');
     }
 
@@ -117,6 +123,8 @@ class SudentsInfoController extends Controller
         $studentImage = Student::find($id)->image;
 
         $inputs = $request->all();
+
+        // dd($inputs); 
 
         if($request->has('image'))
         {
@@ -151,7 +159,7 @@ class SudentsInfoController extends Controller
         else{
             $student->update($request->all());
         }
-
+        $request->session()->flash('alert-success', 'Student record was successful updated!');
         return redirect()->route('lists');
     
     }
@@ -161,6 +169,8 @@ class SudentsInfoController extends Controller
         $student = Student::where('id', $id)->first();
         // $student = Student::where('id', $id)->first()->delete();
         $studentImage = $student->image;
+
+
 
         if($student->image != null){
 
@@ -186,18 +196,28 @@ class SudentsInfoController extends Controller
         ]);
     }
 
-    public function deleteImage($id,Request $request){
+    public function deleteImage($id,Request $request)
+    {
 
         $student = Student::where('id', $id)->first();
 
         $studentImage = Student::find($id)->image;
 
-        $inputs = $request->all();
-        
-        
 
-        return redirect()->route('lists');
+        if($studentImage != null){
 
+            if(File::exists('assets/images/' . $studentImage)) {
+        
+                unlink('assets/images/'.$studentImage);
+                            
+            }
+        }
+
+        $student->image = null;
+
+        $student->update($request->all());
+
+        return back();
     }
 
 }

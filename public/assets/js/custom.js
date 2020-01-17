@@ -1,5 +1,10 @@
 $(document).ready(function(){
+
     
+    if($('.checkboxes label').hasClass('checked')){
+        $('label.checked').find('input').attr("checked",true);
+    }
+
     // Gender radio selection elements
     $('.checkboxes').find('label').click(function(){
 
@@ -46,6 +51,8 @@ $(document).ready(function(){
         readURL(this);
     });
 
+    // 
+
     $('.header .cell').find('a').text('');
     // date picker
 
@@ -65,40 +72,39 @@ $(document).ready(function(){
 
 
     // student record search ajax
-
     $('#search').keyup( function(){
         $('.body-table').addClass('ajax');
-
         var searchValue = $(this).val();
-
         $.ajax({
 
-            url: "/search",
+            url: "/search/name",
             data: { 
-                name: searchValue, 
+                name: searchValue,
             },
             method:'GET',
+            // dataType: 'html',
             success:function(data){
+                console.log(data)
                 $('.body-table').removeClass('ajax');
-                $('.body-table').html('');
-                var QueryArray = data.data.data;
-                if(QueryArray != ''){
-                    QueryArray.forEach(element => {
-                        if(element.image == null)
-                        {
-                            document.querySelector('.body-table').innerHTML += '<div class="row"> <div class="cell"> <img src="/assets/images/profile404.jpg" />  </div> <div class="cell">' + element.name +' </div><div class="cell">' + element.roll_no +' </div><div class="cell">' + element.class +' </div><div class="cell">' + element.age +' </div><div class="cell">' + element.gender +' </div> <div class="cell">' + element.hobies +' </div><div class="cell"><span><a href="/edit-records/'+ element.id +'" class="btn btn-success">Edit</a><a href="delete-records/'+ element.id +'" class="btn btn-danger">Delete</a> <a href="http://localhost:8000/single-student/'+ element.id +'1" class="btn btn-success">show</a> </span>  </div>  </div>';
-                        }else
-                        {
-                            document.querySelector('.body-table').innerHTML += '<div class="row"> <div class="cell"> <img src="/assets/images/'+ element.image +'" />  </div> <div class="cell">' + element.name +' </div><div class="cell">' + element.roll_no +' </div><div class="cell">' + element.class +' </div><div class="cell">' + element.age +' </div><div class="cell">' + element.gender +' </div> <div class="cell">' + element.hobies +' </div><div class="cell"><span><a href="/edit-records/'+ element.id +'" class="btn btn-success">Edit</a><a href="delete-records/'+ element.id +'" class="btn btn-danger">Delete</a> <a href="http://localhost:8000/single-student/'+ element.id +'1" class="btn btn-success">show</a></span>  </div>  </div>';
-                        }
-                    }); 
+                if(data.html != "")
+                {
+                    $('.body-table').html(data.html);
                 }
                 else
                 {
-                    document.querySelector('.body-table').innerHTML += '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
-                }              
+                    document.querySelector('.body-table').innerHTML = '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
+                }
             }
         })
+        if($(this).val() == '')
+        {
+            location.reload();
+        }
+
+      
     });
+
+   
+    
   
 });

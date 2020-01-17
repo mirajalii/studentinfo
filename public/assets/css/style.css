@@ -145,6 +145,22 @@ label.checked{
     padding: 20px 10px 19px;
     text-align: center;
 }
+.file-upload a{
+    position: absolute;
+    text-align: center;
+    width: 34px;
+    color: #000;
+    top: 0;
+    z-index: 2;
+    top: 42px;
+    left: 77px;
+    font-size: 26px;
+    background: #ccc;
+    border-radius: 0 0 6px 6px;
+}
+.file-upload a:hover{
+    color: red;
+}
 
 input[type='file']{
     position: absolute;
@@ -169,8 +185,12 @@ input[type='file']{
     position: absolute;
     top: 0;
     font-size: 30px;
-    padding: 20px 0 0 20px;
+    padding: 5px 0 0 20px;
 
+}
+
+.flash-message .alert{
+    margin: 20px 0 0;
 }
 
 .header-elements{

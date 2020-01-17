@@ -20,7 +20,10 @@ class Student extends Model
         'hobies',
         'image'
     ];
-    public $sortable = ['id'];
+    public $sortable = [
+        'roll_no',
+        'name'
+    ];
 
     // public function setAgeAttribute($value)
     // {

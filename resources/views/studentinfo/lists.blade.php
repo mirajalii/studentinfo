@@ -9,13 +9,15 @@
             <form action="{{route('lists')}}" method="post" role="search">
                 {{ csrf_field() }}
                 <input type="text" name="q" id="search" placeholder="Search student by name">
-                <i class="fa fa-search" aria-hidden="true"></i>
+                {{ Form::select('class', config('student.class_names'))}}
+                    <i class="fa fa-search" aria-hidden="true"></i>
             </form>
         </div>
         <div class="add">
             <a href="{{URL::to('/add-student/create')}}" class="btn btn-success">Add New Records</a>
         </div>
     </div>
+    @include ('alert-message')
     <div class="wrapper">
   
         <div class="table">
@@ -67,7 +69,7 @@
                     <div class="cell">
                         <span>
                             <a href="{{route('edit', $student->id)}}" class="btn btn-success">Edit</a>
-                            <a href="{{route('delete', $student->id)}}" class="btn btn-danger">Delete</a>
+                            <a onclick="return confirm('Are you sure?')" href="{{route('delete', $student->id)}}" class="btn btn-danger">Delete</a>
                             <a href="{{route('single', $student->id)}}" class="btn btn-success">show</a>
                         </span> 
                     </div>

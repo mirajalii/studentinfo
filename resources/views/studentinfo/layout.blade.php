@@ -19,6 +19,7 @@
     </div>
 
     <script type="text/javascript" src="{{ URL::asset('assets/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('assets/js/custom.js') }}"></script>
 </body>

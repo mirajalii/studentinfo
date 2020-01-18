@@ -30,14 +30,18 @@ class SudentsInfoController extends Controller
         $students = null;
         $inputs = $request->all();
 
-        dd(Arr::get(
-            [$inputs => 'name']
-        ));
-        if(Arr::get($inputs, 'name')){
+        // dd($inputs['name']);
+
+       
+
+        if(Arr::get($inputs, 'name' ,$inputs, 'class',$inputs, 'age')){
             $name = Arr::get($inputs, 'name');
-            // $class = Arr::get($inputs, 'class');
-            // dd($class);
-            $students = Student::where('name', 'like', '%'.$name.'%')->paginate(5);
+            $class = Arr::get($inputs, 'class');
+            $age = Arr::get($inputs, 'age');
+            $students = Student::where('name', 'like', '%'.$name.'%')
+                                ->where('class', 'like', '%'.$class.'%')
+                                ->where('age', 'like', '%'.$age.'%')
+                                ->paginate(5);
         }
 
         // return view('ajax')->render();

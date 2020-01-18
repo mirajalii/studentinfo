@@ -1,7 +1,9 @@
 body{
     font-family: montserrat;
 }
-
+.container{
+    position: relative;
+}
 li{
     list-style: none;
 }
@@ -66,7 +68,11 @@ ol,ul{
 .custom-btn:hover::before{
     width: 100%;
 }
-
+.inner-log-btn{
+    position: absolute;
+    right: 14px;
+    top: 6px;
+}
 .input-col-4,
 .input-col-6,
 .input-col-12{
@@ -188,7 +194,36 @@ input[type='file']{
     padding: 5px 0 0 20px;
 
 }
+#ajax-search{
+    display: flex;
+}
+#ajax-search input,
+#ajax-search select,
+#ajax-search button{
+    margin-right: 8px;
+    color: #000;
+}
+#ajax-search button{
+    min-width: 34px;
+    background: #ccc;
+    margin-left: -8px;
+    border-radius: 0 9px 9px 0;
+    padding: 0 10px;
+    border: none;
+}
 
+#ajax-search button.searching i{
+    font-size: 12px;
+    position: relative;
+    animation: mymove 0.5s infinite;
+  }
+  
+  @keyframes mymove {
+    0%   {font-size: 16px;}
+    25%  {font-size: 14px;}
+    75%  {font-size: 12px;}
+    100% {font-size: 16px;}
+  }
 .flash-message .alert{
     margin: 20px 0 0;
 }
@@ -207,13 +242,6 @@ input[type='file']{
     padding: 0 7px;
 }
 
-.search-box i{
-    position: absolute;
-    right: 6px;
-    top: 5px;
-    color: #cacaca;
-    font-size: 18px;
-}
 
 
 .search-box ::-webkit-input-placeholder { /* Edge */
@@ -345,6 +373,82 @@ ul.details li{
     margin-left: 2px;
 }
 
+
+.welcome-body{
+    background-color: #000;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#particles-js{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.card-header{
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.admin-form .card{
+    height: 370px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+}
+    
+.admin-form .input-group-prepend span{
+    width: 50px;
+    background-color: #FFC312;
+    color: black;
+    border:0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0;
+}
+.admin-form .input-group.form-group input{
+    background: transparent;
+    border-radius: 0;
+    color: #fff;
+    border-color: #FFC312;
+}
+.admin-form .input-group.form-group input::placeholder {
+    color: #fff;
+}
+.admin-form input:focus{
+
+    outline: 0 0 0 0  !important;
+    box-shadow: 0 0 0 0 !important;
+
+}
+    
+
+    
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 100%;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+    
+.login_btn:hover{
+    color: black;
+    background-color: white;
+}
+    
+.admin-form .links{
+    color: white;
+}
+    
+.admin-form .links a{
+    margin-left: 4px;
+}
 
   @media screen and (max-width: 580px) {
     .wrapper .table {

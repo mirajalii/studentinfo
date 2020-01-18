@@ -1,16 +1,25 @@
-@extends('studentinfo.layout')
+
+@extends('layout')
+
+@section('title', 'Records')
 
 @section('content')
 
 <div class="container">
+    <div class="inner-log-btn">
+        <a href="" class="btn btn-success">Login</a>
+        <a href="" class="btn btn-danger">LogOut</a>
+    </div>
     {{-- tabel --}}
     <div class="header-elements">
         <div class="search-box">    
-            <form action="{{route('lists')}}" method="post" role="search">
+            <form action="{{route('lists')}}" method="get" role="search" id="ajax-search">
                 {{ csrf_field() }}
                 <input type="text" name="q" id="search" placeholder="Search student by name">
                 {{ Form::select('class', config('student.class_names'))}}
-                    <i class="fa fa-search" aria-hidden="true"></i>
+                <input type="text" name="age" autocomplete="off" placeholder="D.O.B">
+                <button id="submit-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    
             </form>
         </div>
         <div class="add">
@@ -51,31 +60,8 @@
                 </div>
             </div>
             <div class="body-table">
-            @foreach($students as $student)
-                <div class="row">
-                    <div class="cell"> 
-                        @if($student->image)
-                        <img src="{{URL::asset('assets/images/')}}/{{ $student->image}}" alt=""/>
-                        @else
-                            <img src="{{URL::asset('assets/images/')}}/profile404.jpg" alt=""/>
-                        @endif
-                    </div>
-                    <div class="cell">{{$student->name}}</div>
-                    <div class="cell">{{$student->roll_no}}</div>
-                    <div class="cell">{{$student->class}}</div>
-                    <div class="cell">{{$student->age}}</div>
-                    <div class="cell">{{$student->gender}}</div>
-                    <div class="cell">{{$student->hobies}}</div>
-                    <div class="cell">
-                        <span>
-                            <a href="{{route('edit', $student->id)}}" class="btn btn-success">Edit</a>
-                            <a onclick="return confirm('Are you sure?')" href="{{route('delete', $student->id)}}" class="btn btn-danger">Delete</a>
-                            <a href="{{route('single', $student->id)}}" class="btn btn-success">show</a>
-                        </span> 
-                    </div>
-                </div>
-            @endforeach
-        </div>
+                @include ('ajax')
+            </div>
         </div>
         {{ $students->links() }}
     </div>

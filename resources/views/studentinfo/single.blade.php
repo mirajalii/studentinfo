@@ -1,4 +1,6 @@
-@extends('studentinfo.layout')
+@extends('layout')
+
+@section('title', $students->name)
 
 @section('content')
 

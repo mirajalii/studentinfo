@@ -72,43 +72,87 @@ $(document).ready(function(){
 
 
     // student record search ajax
-    $('#search').keyup( function(){
+    // $('#search').keyup( function(){
+    //     $('.body-table').addClass('ajax');
+    //     var searchValue = $(this).val();
+    //     $.ajax({
+
+    //         url: "/search/name",
+    //         data: { 
+    //             name: searchValue,
+    //         },
+    //         method:'GET',
+    //         // dataType: 'html',
+    //         success:function(data){
+    //             console.log(data)
+    //             $('.body-table').removeClass('ajax');
+    //             if(data.html != "")
+    //             {
+    //                 $('.body-table').html(data.html);
+    //             }
+    //             else
+    //             {
+    //                 document.querySelector('.body-table').innerHTML = '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
+    //             }
+    //         },
+    //         error: function(){
+    //                 $('.body-table').removeClass('ajax');
+    //                 document.querySelector('.body-table').innerHTML = '<p class="not-found">please try again after some time</a> </p>';
+    //         },
+    //     })
+    //     if($(this).val() == '')
+    //     {
+    //         location.reload();
+    //     }
+
+      
+    // });
+
+    // Student search on from submit
+    $('#submit-btn').on('click',function(e){
+
+        $('#ajax-search').submit();
+        e.preventDefault();
+    });
+    $('#ajax-search').submit( function(e){
+        e.preventDefault();
         $('.body-table').addClass('ajax');
-        var searchValue = $(this).val();
+        $('#submit-btn').addClass('searching');
+        var searchName= $(this).find('#search').val();
+        var searchClass= $(this).find('select').val();
+        var searchAge= $(this).find('input[name="age"]').val();
+        console.log(searchName + searchClass + searchAge);
         $.ajax({
 
-            url: "/search/name",
+            url: "search",
             data: { 
-                name: searchValue,
+                name: searchName,
+                class: searchClass,
+                age: searchAge
             },
             method:'GET',
-            // dataType: 'html',
             success:function(data){
-                console.log(data)
                 $('.body-table').removeClass('ajax');
-                if(data.html != "")
+                $('#submit-btn').removeClass('searching');
+                if(data.html != '')
                 {
+                   
                     $('.body-table').html(data.html);
                 }
                 else
                 {
-                    document.querySelector('.body-table').innerHTML = '<p class="not-found"> Search Result <b>'+ searchValue +'</b> is not found <a href="/records"> Back to lists</a> </p>';
+                    document.querySelector('.body-table').innerHTML = '<p class="not-found"> Search Result <b> Query </b> is not found <a href="/records"> Back to lists</a> </p>';
                 }
+                
             },
             error: function(){
+                $('#submit-btn').removeClass('searching');
                     $('.body-table').removeClass('ajax');
                     document.querySelector('.body-table').innerHTML = '<p class="not-found">please try again after some time</a> </p>';
             },
-        })
-        if($(this).val() == '')
-        {
-            location.reload();
-        }
-
-      
+        })   
     });
 
+
    
-    
-  
 });

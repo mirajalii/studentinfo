@@ -1,4 +1,6 @@
-@extends('studentinfo.layout')
+@extends('layout')
+
+@section('title', 'Edit')
 
 @section('content')
     <div class="container">

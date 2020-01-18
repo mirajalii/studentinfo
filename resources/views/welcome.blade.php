@@ -1,163 +1,100 @@
-@extends('layout')
+<!DOCTYPE html>
+    <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+        <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
-        <div class="welcome-body">
-            <div id="particles-js"></div>
-            <div class="admin-form">
-                <form action="">
-                    <div class="d-flex justify-content-center h-100">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3>Sign In</h3>
-                            </div>
-                            <div class="card-body">
-                                <form>
-                                    <div class="input-group form-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-user" aria-hidden="true"></i></span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="username">
-                                        
-                                    </div>
-                                    <div class="input-group form-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
-                                        </div>
-                                        <input type="password" class="form-control" placeholder="password">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="submit" value="Login" class="btn float-right login_btn">
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="card-footer">
-                                <div class="d-flex justify-content-center links">
-                                    Don't have an account?<a href="#">Sign Up</a>
-                                </div>
-                                <div class="d-flex justify-content-center">
-                                    <a href="#">Forgot your password?</a>
-                                </div>
-                            </div>
-                        </div>
+            <title>Laravel</title>
+
+            <!-- Fonts -->
+            <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+
+            <!-- Styles -->
+            <style>
+                html, body {
+                    background-color: #fff;
+                    color: #636b6f;
+                    font-family: 'Nunito', sans-serif;
+                    font-weight: 200;
+                    height: 100vh;
+                    margin: 0;
+                }
+
+                .full-height {
+                    height: 100vh;
+                }
+
+                .flex-center {
+                    align-items: center;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .position-ref {
+                    position: relative;
+                }
+
+                .top-right {
+                    position: absolute;
+                    right: 10px;
+                    top: 18px;
+                }
+
+                .content {
+                    text-align: center;
+                }
+
+                .title {
+                    font-size: 84px;
+                }
+
+                .links > a {
+                    color: #636b6f;
+                    padding: 0 25px;
+                    font-size: 13px;
+                    font-weight: 600;
+                    letter-spacing: .1rem;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                }
+
+                .m-b-md {
+                    margin-bottom: 30px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="flex-center position-ref full-height">
+                @if (Route::has('login'))
+                    <div class="top-right links">
+                        @auth
+                            <a href="{{ url('/home') }}">Home</a>
+                        @else
+                            <a href="{{ route('login') }}">Login</a>
+
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}">Register</a>
+                            @endif
+                        @endauth
                     </div>
-                </form>
+                @endif
+
+                <div class="content">
+                    <div class="title m-b-md">
+                        Laravel
+                    </div>
+
+                    <div class="links">
+                        <a href="https://laravel.com/docs">Docs</a>
+                        <a href="https://laracasts.com">Laracasts</a>
+                        <a href="https://laravel-news.com">News</a>
+                        <a href="https://blog.laravel.com">Blog</a>
+                        <a href="https://nova.laravel.com">Nova</a>
+                        <a href="https://forge.laravel.com">Forge</a>
+                        <a href="https://vapor.laravel.com">Vapor</a>
+                        <a href="https://github.com/laravel/laravel">GitHub</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-        <script>
-        // Particals.js
-        particlesJS("particles-js", {
-            "particles": {
-            "number": {
-                "value": 355,
-                "density": {
-                "enable": true,
-                "value_area": 789.1476416322727
-                }
-            },
-            "color": {
-                "value": "#ffffff"
-            },
-            "shape": {
-                "type": "circle",
-                "stroke": {
-                "width": 0,
-                "color": "#000000"
-                },
-                "polygon": {
-                "nb_sides": 5
-                },
-                "image": {
-                "src": "img/github.svg",
-                "width": 100,
-                "height": 100
-                }
-            },
-            "opacity": {
-                "value": 0.48927153781200905,
-                "random": false,
-                "anim": {
-                "enable": true,
-                "speed": 0.2,
-                "opacity_min": 0,
-                "sync": false
-                }
-            },
-            "size": {
-                "value": 2,
-                "random": true,
-                "anim": {
-                "enable": true,
-                "speed": 1,
-                "size_min": 0,
-                "sync": false
-                }
-            },
-            "line_linked": {
-                "enable": false,
-                "distance": 150,
-                "color": "#ffffff",
-                "opacity": 0.4,
-                "width": 1
-            },
-            "move": {
-                "enable": true,
-                "speed": 0.2,
-                "direction": "none",
-                "random": true,
-                "straight": false,
-                "out_mode": "out",
-                "bounce": false,
-                "attract": {
-                "enable": false,
-                "rotateX": 600,
-                "rotateY": 1200
-                }
-            }
-            },
-            "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-                "onhover": {
-                "enable": true,
-                "mode": "bubble"
-                },
-                "onclick": {
-                "enable": true,
-                "mode": "push"
-                },
-                "resize": true
-            },
-            "modes": {
-                "grab": {
-                "distance": 400,
-                "line_linked": {
-                    "opacity": 1
-                }
-                },
-                "bubble": {
-                "distance": 83.91608391608392,
-                "size": 1,
-                "duration": 3,
-                "opacity": 1,
-                "speed": 3
-                },
-                "repulse": {
-                "distance": 200,
-                "duration": 0.4
-                },
-                "push": {
-                "particles_nb": 4
-                },
-                "remove": {
-                "particles_nb": 2
-                }
-            }
-            },
-            "retina_detect": true
-        });
-        </script>
-@endsection
-
-
-
+        </body>
+    </html>

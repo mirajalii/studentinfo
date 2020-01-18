@@ -8,7 +8,7 @@
 <div class="container">
     <div class="inner-log-btn">
         <a href="" class="btn btn-success">Login</a>
-        <a href="" class="btn btn-danger">LogOut</a>
+        <a href="{{ URL::route('logout') }}" class="btn btn-danger">LogOut</a>
     </div>
     {{-- tabel --}}
     <div class="header-elements">

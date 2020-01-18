@@ -41,3 +41,7 @@ Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
 Route::get('image-delete/{id}', 'SudentsInfoController@deleteImage')->name('imageDelete');
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

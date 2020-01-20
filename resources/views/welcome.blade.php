@@ -8,7 +8,7 @@
 
             <!-- Fonts -->
             <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
+            <link rel="stylesheet" href="{{ URL::asset('assets/css/bootstrap.min.css') }}">
             <!-- Styles -->
             <style>
                 html, body {
@@ -61,14 +61,25 @@
                 .m-b-md {
                     margin-bottom: 30px;
                 }
+                .top-right.links{
+                    display: flex;
+                }
+                .top-right.links .nav-links{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
             </style>
         </head>
         <body>
+            @include ('alert-message')
             <div class="flex-center position-ref full-height">
                 @if (Route::has('login'))
                     <div class="top-right links">
                         @auth
-                            <a href="{{ url('/records') }}">Home</a>
+                        <a href="{{ url('/role') }}" class="nav-links">Users-Role</a>
+                            <a href="{{ url('/records') }}" class="nav-links">Records</a>
+                            @include('userSign')
                         @else
                             <a href="{{ route('login') }}">Login</a>
 

@@ -6,6 +6,12 @@ use Illuminate\Http\Request;
 
 use App\Models\Student;
 
+use App\User;
+
+use DB;
+
+use Gate;
+
 class HomeController extends Controller
 {
     /**
@@ -25,14 +31,46 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {  
-        $inputs = $request->all();
+        if (Gate::allows('public')) {
+                $inputs = $request->all();
+                $students = Student::sortable()->paginate(5);
+                return view('studentinfo.lists', [
+                'students' => $students,
+            ]);
 
-        $students = Student::sortable()->paginate(5);
-        
-        return view('studentinfo.lists', [
-        
-            'students' => $students,
-        
-        ]);
+        }else{
+            $request->session()->flash('alert-success', 'you are not a authorized user');
+            return view('welcome');
+        }
+       
     }
+    public function roleuser(Request $request){
+        $users = DB::table('users')->get();
+        return view('role',[
+            'users' => $users,
+        ]);
+
+    }
+    public function roleedit($id,Request $request){
+        if(Gate::allows('public')) {
+         
+            $users = User::where('id',$id)->first();
+
+            $users->roles = $request->roles;
+
+            $users->save();
+
+            return ;
+        
+        }else{
+
+            $request->session()->flash('alert-success', 'Only edit could edit the Roles');
+
+            return back();
+        
+        }
+
+        
+    }
+
 }

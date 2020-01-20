@@ -369,6 +369,11 @@ ul.details li{
 .wrapper .row .cell:nth-child(7){
     width: 150px;
 }
+
+.wrapper  .roles-table .row .cell
+{   
+    width: 25%;
+}
 .cell span a{
     margin-left: 2px;
 }

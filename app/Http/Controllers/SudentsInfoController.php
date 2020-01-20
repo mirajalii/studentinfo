@@ -18,6 +18,10 @@ use Arr;
 
 class SudentsInfoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function index()
     {
@@ -28,31 +32,50 @@ class SudentsInfoController extends Controller
     public function studentRecords(Request $request)
     {
         $students = null;
+
         $inputs = $request->all();
 
-        // dd($inputs['name']);
-
-       
-
         if(Arr::get($inputs, 'name' ,$inputs, 'class',$inputs, 'age')){
+
             $name = Arr::get($inputs, 'name');
+
             $class = Arr::get($inputs, 'class');
+
             $age = Arr::get($inputs, 'age');
+
             $students = Student::where('name', 'like', '%'.$name.'%')
+        
                                 ->where('class', 'like', '%'.$class.'%')
+                            
                                 ->where('age', 'like', '%'.$age.'%')
+                            
+                                ->paginate(5);
+        }
+        elseif(Arr::get($inputs, 'name' ,$inputs, 'class'))
+        {
+        
+            $name = Arr::get($inputs, 'name');
+        
+            $class = Arr::get($inputs, 'class');
+        
+            $students = Student::where('name', 'like', '%'.$name.'%')
+        
+                                ->where('class', 'like', '%'.$class.'%')
+                            
+                                ->paginate(5);
+
+        }elseif(Arr::get($inputs, 'name')){
+
+            $name = Arr::get($inputs, 'name');
+            
+            $students = Student::where('name', 'like', '%'.$name.'%')
+            
                                 ->paginate(5);
         }
 
-        // return view('ajax')->render();
-
         $html = View::make('ajax', compact('students'))->render();
+
         return Response::json(['html' => $html]);
-
-        // return response()->json([
-        //     'data' => $students,
-        // ]);
-
 
     }
 
@@ -60,10 +83,14 @@ class SudentsInfoController extends Controller
     {
         
         $inputs = $request->all();
+
         $students = Student::sortable()->paginate(5);
+        
         return view('studentinfo.lists', [
+        
             'students' => $students,
-        ]);
+        
+            ]);
 
     }
     public function store(Request $request) 

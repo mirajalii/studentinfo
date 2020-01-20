@@ -15,13 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/add-student/', function () {
-    return view('welcome');
-});
-
-
-// Route::resource('/add-student/','SudentsInfoController');
-
 Route::get('/add-student/create', 'SudentsInfoController@create');
 
 Route::post('/add-records', 'SudentsInfoController@store')->name('addRecord');
@@ -40,8 +33,6 @@ Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
 
 Route::get('image-delete/{id}', 'SudentsInfoController@deleteImage')->name('imageDelete');
 
-
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/records', 'HomeController@index')->name('lists');

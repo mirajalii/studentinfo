@@ -426,8 +426,12 @@ ul.details li{
     box-shadow: 0 0 0 0 !important;
 
 }
-    
 
+.user-name{
+    border: 1px solid #ccc;
+    padding: 3px 14px;
+    margin: 0 10px 0 4px;
+}
     
 .login_btn{
     color: black;

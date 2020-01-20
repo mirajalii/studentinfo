@@ -6,10 +6,7 @@
 @section('content')
 
 <div class="container">
-    <div class="inner-log-btn">
-        <a href="" class="btn btn-success">Login</a>
-        <a href="{{ URL::route('logout') }}" class="btn btn-danger">LogOut</a>
-    </div>
+    @include('userSign')
     {{-- tabel --}}
     <div class="header-elements">
         <div class="search-box">    
@@ -60,7 +57,7 @@
                 </div>
             </div>
             <div class="body-table">
-                @include ('ajax')
+                @include('ajax')
             </div>
         </div>
         {{ $students->links() }}

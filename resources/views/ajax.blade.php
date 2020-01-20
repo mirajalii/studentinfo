@@ -20,5 +20,5 @@
                 <a href="{{route('single', $student->id)}}" class="btn btn-success">show</a>
             </span> 
         </div>
-    </div>
+    </div><!--row-->
 @endforeach

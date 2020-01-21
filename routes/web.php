@@ -33,10 +33,14 @@ Route::get('/search', 'SudentsInfoController@studentRecords')->name('eseaarch');
 
 Route::get('image-delete/{id}', 'SudentsInfoController@deleteImage')->name('imageDelete');
 
-Route::get('/role', 'HomeController@roleuser');
+Route::get('/role', 'HomeController@roleuser')->name('users');
 
 Auth::routes();
 
 Route::get('/records', 'HomeController@index')->name('lists');
 
 Route::post('/Role-edit/{id}', 'HomeController@roleedit')->name('editRole');
+
+Route::get('/user-edit/{id}', 'HomeController@userEdit')->name('userEdit');
+
+Route::get('/userUpdate/{id}', 'HomeController@userUpdate')->name('userUpdate');

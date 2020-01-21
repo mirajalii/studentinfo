@@ -1,6 +1,10 @@
 body{
     font-family: montserrat;
 }
+.main-container{
+    position: relative;
+    margin-top: 20px;
+}
 .container{
     position: relative;
 }

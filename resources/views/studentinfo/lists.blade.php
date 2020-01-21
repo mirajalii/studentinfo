@@ -20,6 +20,7 @@
             </form>
         </div>
         <div class="add">
+            <a href="{{URL::to('/')}}" class="btn btn-success">Home</a>
             <a href="{{URL::to('/add-student/create')}}" class="btn btn-success">Add New Records</a>
         </div>
     </div>

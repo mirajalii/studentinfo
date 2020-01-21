@@ -15,14 +15,11 @@ use View;
 use Response;
 use DB;
 use Arr;
+use Gate;
 
 class SudentsInfoController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     public function index()
     {
         
@@ -134,10 +131,15 @@ class SudentsInfoController extends Controller
         return redirect()->route('lists');
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        if(Gate::allows('public')) {
+            return view('studentinfo.create');
+        }else{
+            $request->session()->flash('alert-success', 'Only admin can add the student info');
+            return back();
+        }
 
-        return view('studentinfo.create');
     
     }
 
@@ -197,36 +199,47 @@ class SudentsInfoController extends Controller
     
     }
 
-    public function desktroy($id)
+    public function desktroy($id, Request $request)
     {
-        $student = Student::where('id', $id)->first();
-        // $student = Student::where('id', $id)->first()->delete();
-        $studentImage = $student->image;
+        if(Gate::allows('public')) {
+            $student = Student::where('id', $id)->first();
+            // $student = Student::where('id', $id)->first()->delete();
+            $studentImage = $student->image;
 
 
 
-        if($student->image != null){
+            if($student->image != null){
 
-            if(File::exists('assets/images/' . $studentImage)) {
-        
-                unlink('assets/images/'.$studentImage);
+                if(File::exists('assets/images/' . $studentImage)) {
             
+                    unlink('assets/images/'.$studentImage);
+                
+                }
             }
-        }
-        
-        $student->delete();
+            
+            $student->delete();
 
-        return redirect()->route('lists');
+            return redirect()->route('lists');
+        }else{
+            $request->session()->flash('alert-success', 'You have not access to Delete student details');
+            return back();
+        }
     }
 
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        $student = Student::where('id', $id)->first();
+        if(Gate::allows('public')) {
+            $student = Student::where('id', $id)->first();
 
-        return view('studentinfo.update', [
-            'id' => $id,
-            'student' => $student,
-        ]);
+            return view('studentinfo.update', [
+                'id' => $id,
+                'student' => $student,
+            ]);
+        }else{
+            $request->session()->flash('alert-success', 'You have not access to edit student details');
+
+            return back();
+        }
     }
 
     public function deleteImage($id,Request $request)

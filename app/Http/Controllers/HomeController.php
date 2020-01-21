@@ -31,27 +31,29 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {  
-        if (Gate::allows('public')) {
-                $inputs = $request->all();
-                $students = Student::sortable()->paginate(5);
-                return view('studentinfo.lists', [
-                'students' => $students,
-            ]);
+        $inputs = $request->all();
 
-        }else{
-            $request->session()->flash('alert-success', 'you are not a authorized user');
-            return view('welcome');
-        }
-       
+            $students = Student::sortable()->paginate(5);
+
+            return view('studentinfo.lists', [
+
+            'students' => $students,
+            
+        ]);
     }
     public function roleuser(Request $request){
+
         $users = DB::table('users')->get();
+
         return view('role',[
+
             'users' => $users,
+
         ]);
 
     }
     public function roleedit($id,Request $request){
+
         if(Gate::allows('public')) {
          
             $users = User::where('id',$id)->first();
@@ -60,7 +62,7 @@ class HomeController extends Controller
 
             $users->save();
 
-            return ;
+            return back();
         
         }else{
 
@@ -69,8 +71,50 @@ class HomeController extends Controller
             return back();
         
         }
-
         
     }
 
+    public function userEdit($id,Request $request){
+        
+        if(Gate::allows('public')) {
+
+            $user = User::where('id',$id)->first();
+            
+            return view('Auth.userupdate',[
+
+                'users' => $user
+
+            ]);
+
+        }
+        else{
+
+            $request->session()->flash('alert-success', 'Uou have not access to edit user');
+
+            return back();
+
+        }
+    }
+
+    public function userUpdate($id,Request $request){
+
+        if(Gate::allows('public')) {
+
+            $users = User::where('id',$id)->first();
+
+            $inputs = $request->all();
+
+            $users->update($inputs);
+
+            $request->session()->flash('alert-success', 'User detail success fully update');
+
+            return redirect()->route('users');
+        }
+        else
+        {
+            $request->session()->flash('alert-success', 'You have not access to edit user');
+
+            return back();
+        }
+    }
 }
